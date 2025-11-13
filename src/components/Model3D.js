@@ -84,15 +84,26 @@ const Model3D = () => {
       dirLight.shadow.camera.far = 50;
       scene.add(dirLight);
 
-      // Ground plane
-      const planeGeo = new THREE.PlaneGeometry(200, 200);
-      const planeMat = new THREE.MeshStandardMaterial({ color: 0x0f1f33, roughness: 0.85, metalness: 0.0 });
+      // Ground plane (smaller size, transparent)
+      const planeGeo = new THREE.PlaneGeometry(10, 10);
+      const planeMat = new THREE.MeshStandardMaterial({ 
+        color: 0x0f1f33, 
+        roughness: 0.85, 
+        metalness: 0.0,
+        transparent: true,
+        opacity: 0.0 // Fully transparent
+      });
       const ground = new THREE.Mesh(planeGeo, planeMat);
       ground.rotation.x = -Math.PI / 2;
       ground.position.y = 0;
       ground.receiveShadow = true;
       scene.add(ground);
       groundRef.current = ground;
+
+      // Grid helper (blue grid lines only)
+      const gridHelper = new THREE.GridHelper(10, 10, 0x64b5f6, 0x64b5f6);
+      gridHelper.position.y = 0.01; // Slightly above the plane to avoid z-fighting
+      scene.add(gridHelper);
 
       // Controls
       const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -334,11 +345,20 @@ const Model3D = () => {
     const scaleFactor = targetSize / maxDim;
     obj.scale.setScalar(scaleFactor);
 
-    // Recompute box after scaling
+    // Rotate model to be horizontal (lay it flat)
+    // Rotate around X-axis to make it horizontal
+    obj.rotation.x = -Math.PI / 2;
+    // Reset Y and Z rotations to ensure it's flat
+    obj.rotation.y = 0;
+    obj.rotation.z = 0;
+
+    // Recompute box after scaling and rotation
     const scaledBox = new THREE.Box3().setFromObject(obj);
     const minY = scaledBox.min.y;
-    const lift = (groundRef.current?.position.y ?? 0) - minY + 0.05;
+    const lift = (groundRef.current?.position.y ?? 0) - minY + 0.5; // Place 0.5 units above the plane
     obj.position.y += lift;
+    obj.position.x = 0; // Center horizontally
+    obj.position.z = 0; // Center horizontally
   };
 
   const formatSize = (bytes) => {

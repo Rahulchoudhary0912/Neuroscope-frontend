@@ -1,7 +1,7 @@
 {
   "name": "neuro-scope-frontend",
   "version": "1.0.0",
-  "description": "Frontend for the NeuroScope API",
+  "description": "Frontend for the NeuroScope Brain Tumor Analysis Platform",
   "main": "src/index.js",
   "scripts": {
     "start": "set HOST=0.0.0.0&& set PORT=3000&& set DANGEROUSLY_DISABLE_HOST_CHECK=true&& set NODE_OPTIONS=--openssl-legacy-provider&& react-scripts start",
@@ -27,5 +27,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "keywords": [
+    "brain-tumor",
+    "medical-ai",
+    "mri-analysis",
+    "neuroscope",
+    "react",
+    "machine-learning"
+  ],
+  "author": "",
+  "license": "MIT"
 }

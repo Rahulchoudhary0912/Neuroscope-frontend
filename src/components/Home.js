@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Header from './Header';
-import { predictSegmentation, predictTumorType } from '../services/api';
+import { predictSegmentation, predictTumorType, API_BASE_URL } from '../services/api';
 import '../styles/home.css';
 
 const Home = () => {
@@ -77,8 +77,7 @@ const Home = () => {
       } else if (segmentationResult.segmented_mask_url) {
         segmentedImageUrl = segmentationResult.segmented_mask_url;
       } else if (segmentationResult.mask_image_path) {
-        const API_BASE = process.env.REACT_APP_API_URL || 'http://192.168.213.1:5000';
-        segmentedImageUrl = `${API_BASE}${segmentationResult.mask_image_path}`;
+        segmentedImageUrl = `${API_BASE_URL}${segmentationResult.mask_image_path}`;
       }
 
       // Combine results

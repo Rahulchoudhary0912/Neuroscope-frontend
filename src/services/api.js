@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Load from environment (Hugging Face Space URL for production)
-const API_BASE_URL =
+export const API_BASE_URL =
   process.env.REACT_APP_API_URL ||
   "https://rahul09122004-neuroscope.hf.space";
 
@@ -60,22 +60,6 @@ export const predictTumorType = async (imageFile) => {
   }
 };
 
-// 🧠 Health Check API - Verify backend is running
-export const checkHealth = async () => {
-  try {
-    const res = await api.get("/health");
-    console.log("✅ Health check passed:", res.data);
-    return res.data;
-  } catch (err) {
-    const errorMessage =
-      err.response?.data?.error ||
-      err.message ||
-      "Backend is unreachable. Please try again later.";
-    console.error("❌ Health check failed:", errorMessage);
-    throw new Error(errorMessage);
-  }
-};
-
 // 🤖 Chatbot API - Ask medical questions
 export const askChatbot = async (question) => {
   try {
@@ -89,18 +73,6 @@ export const askChatbot = async (question) => {
       "Chatbot is unavailable. Please try again.";
     console.error("❌ Chatbot error:", errorMessage);
     throw new Error(errorMessage);
-  }
-};
-
-// 📊 Get Model Information
-export const getModelInfo = async () => {
-  try {
-    const res = await api.get("/model-info");
-    console.log("✅ Model info:", res.data);
-    return res.data;
-  } catch (err) {
-    console.warn("ℹ️ Model info unavailable:", err.message);
-    return { status: "unknown" };
   }
 };
 
