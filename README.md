@@ -1,58 +1,58 @@
-# Neuro Scope Frontend
+# NeuroScope Frontend
 
-This project is a frontend application for the Neuro Scope Segmentation API, built using React. It allows users to upload images and receive predictions from the Flask backend.
+React frontend for the NeuroScope Brain Tumor Analysis Platform.
 
-## Project Structure
+## 🚀 Deployment on Vercel
+
+This project is configured for automatic deployment on Vercel.
+
+### Configuration
+- **Framework**: Create React App
+- **Build Command**: `npm install && npm run build`
+- **Output Directory**: `build`
+- **API Backend**: https://rahul09122004-neuroscope.hf.space
+
+## 📦 Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm start
+
+# Build for production
+npm run build
+```
+
+## 🔧 Environment Variables
+
+Create a `.env.production` file for production:
 
 ```
-neuro-scope-frontend
-├── public
-│   └── index.html
-├── src
-│   ├── components
-│   │   ├── ImageUpload.js
-│   │   ├── Navbar.js
-│   │   └── Results.js
-│   ├── App.js
-│   ├── index.js
-│   └── styles
-│       └── main.css
-├── package.json
-└── README.md
+REACT_APP_API_URL=https://rahul09122004-neuroscope.hf.space
 ```
 
-## Installation
+## 📝 Git Setup
 
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd neuro-scope-frontend
-   ```
+```bash
+# Configure line endings (already done)
+git config core.autocrlf false
+git config core.eol lf
 
-2. Install the dependencies:
-   ```bash
-   npm install
-   ```
+# Add files
+git add .
 
-## Usage
+# Commit
+git commit -m "Initial commit: NeuroScope frontend"
 
-1. Start the development server:
-   ```bash
-   npm start
-   ```
+# Push to GitHub
+git push origin main
+```
 
-2. Open your browser and navigate to `http://localhost:3000` to view the application.
+## 🛠️ Tech Stack
 
-## Features
-
-- Image upload functionality
-- Display of prediction results
-- Responsive design
-
-## Contributing
-
-Feel free to submit issues or pull requests for any improvements or bug fixes.
-
-## License
-
-This project is licensed under the MIT License.
+- React 17
+- React Router
+- Axios
+- Create React App

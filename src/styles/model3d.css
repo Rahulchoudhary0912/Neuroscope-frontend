@@ -1,0 +1,388 @@
+/* RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #0a1929;
+  color: white;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* MAIN CONTAINER */
+.model3d-container {
+  height: 100vh;
+  width: 100%;
+  background-color: #0a1929;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+}
+
+.model3d-ui {
+  width: 100%;
+  max-width: 1100px;
+  padding: 2rem 1rem;
+  text-align: center;
+  z-index: 100;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+
+.model3d-ui.title-section {
+  text-align: center;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.model3d-ui.title-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.model3d-ui.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3rem;
+  color: #2196f3;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+
+.model3d-ui.subtitle {
+  font-size: 1.5rem;
+  color: #64b5f6;
+  margin-bottom: 4rem;
+}
+
+
+
+
+/* UPLOAD BOX */
+.upload3d-container {
+  border: 2px dashed #2196f3;
+  border-radius: 20px;
+  padding: 3rem;
+  text-align: center;
+  background-color: rgba(13, 28, 46, 0.7);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  box-shadow: 0 4px 16px rgba(33, 150, 243, 0.15);
+}
+
+.upload3d-container:hover {
+  border-color: #64b5f6;
+  background-color: rgba(13, 28, 46, 0.9);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(33, 150, 243, 0.3);
+}
+
+.upload3d-container.highlight {
+  border-color: #64b5f6;
+  background-color: rgba(13, 28, 46, 0.9);
+}
+
+.upload3d-container .brain-icon {
+  width: 60px;
+  height: 60px;
+  color: #64b5f6;
+  margin-bottom: 10px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.upload3d-container .upload-text {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.upload3d-container .upload-hint {
+  margin-top: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+}
+
+/* PREVIEW IMAGE */
+.upload-preview {
+  margin-top: 20px;
+  max-width: 100%;
+  max-height: 220px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  display: none;
+}
+
+.upload-preview.visible {
+  display: block;
+}
+
+/* BUTTONS */
+.load3d-button {
+  margin-top: 1.5rem;
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(33,150,243,0.3);
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.load3d-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(33,150,243,0.4);
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+/* Small circular spinner to show inside the load button (no text) */
+.button-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,0.15);
+  border-top: 3px solid #2196f3;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+/* Disabled state for load button while loading */
+.load3d-button:disabled {
+  opacity: 0.85;
+  cursor: default;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(33,150,243,0.12);
+}
+
+/* CANVAS */
+#canvas-container {
+  flex: 1;
+  width: 100%;
+  max-width: 1200px;
+  min-height: 400px;
+  height: calc(100vh - 350px); /* Subtracting approximate space needed for UI elements */
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(13, 28, 46, 0.8);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+  border: 1px solid rgba(33,150,243,0.2);
+  margin: 0 auto 2rem auto;
+}
+
+#canvas-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+/* TOOLBAR */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.tools button,
+.tools .color-picker {
+  background: rgba(25, 118, 210, 0.1);
+  border: 1px solid rgba(33,150,243,0.3);
+  color: #e3f2fd;
+  padding: 0.8rem 1.4rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.tools button:hover,
+.tools .color-picker:hover {
+  background: rgba(33,150,243,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33,150,243,0.3);
+}
+
+/* COLOR PICKER */
+.tools .color-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tools .color-picker input[type="color"] {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* INFO BOX */
+.info-box {
+  margin-top: 1.5rem;
+  background: rgba(13, 28, 46, 0.7);
+  border: 1px solid rgba(33,150,243,0.2);
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* BACK BUTTON */
+.back-button {
+  font-family: 'Orbitron', sans-serif;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(33,150,243,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(33,150,243,0.4);
+  background: linear-gradient(135deg, #1e88e5, #1565c0);
+}
+
+/* CONTROL HELP BOX */
+.controls-info {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(13, 28, 46, 0.9);
+  padding: 1rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: #fff;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(33,150,243,0.2);
+}
+
+.controls-info ul {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.controls-info li {
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.key {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-family: monospace;
+}
+
+/* LOADING OVERLAY */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 25, 41, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  color: #fff;
+  backdrop-filter: blur(4px);
+}
+
+.loading-spinner {
+  width: 56px;
+  height: 56px;
+  border: 5px solid rgba(255,255,255,0.2);
+  border-top: 5px solid #2196f3;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .model3d-ui .title-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .model3d-ui .title-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .upload3d-container {
+    padding: 2rem;
+  }
+
+  .back-button {
+    top: 80px;
+    left: 10px;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .controls-info {
+    bottom: 10px;
+    left: 10px;
+    font-size: 0.8rem;
+    padding: 0.8rem;
+  }
+
+  #canvas-container {
+    height: 55vh;
+  }
+}

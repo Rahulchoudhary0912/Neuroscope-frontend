@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "build",
+  "devCommand": "npm start",
+  "installCommand": "npm install",
+  "framework": "create-react-app",
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://rahul09122004-neuroscope.hf.space/$1"
+    }
+  ]
+}
+
