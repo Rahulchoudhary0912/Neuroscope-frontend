@@ -1,0 +1,58 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: rgba(13, 28, 46, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.glug-logo {
+  height: 80px;
+  object-fit: contain;
+}
+
+.brand-divider {
+  width: 2px;
+  height: 60px;
+  background-color: #2196f3;
+}
+
+.neuroscope-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  color: #2196f3;
+  text-shadow: 0 0 10px rgba(33, 150, 243, 0.3);
+}
+
+.reva-logo {
+  height: 60px;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .glug-logo {
+    height: 60px;
+  }
+  
+  .reva-logo {
+    height: 40px;
+  }
+  
+  .neuroscope-text {
+    font-size: 1.5rem;
+  }
+}
+

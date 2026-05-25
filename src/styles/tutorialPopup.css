@@ -1,0 +1,401 @@
+/* ==========================================================
+   TutorialPopup — Premium Glassmorphism Modal
+   Prefix: tp- (tutorial-popup)
+   Compatible: Chrome, Edge, Safari, Firefox, Mobile browsers
+   ========================================================== */
+
+/* ---------- Overlay ---------- */
+.tp-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(4, 10, 22, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    /* Prevents tap-highlight on mobile */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Overlay animations */
+.tp-overlay--in {
+    animation: tp-fade-in 0.35s ease forwards;
+}
+.tp-overlay--out {
+    animation: tp-fade-out 0.38s ease forwards;
+}
+
+@keyframes tp-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes tp-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* ---------- Modal ---------- */
+.tp-modal {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    max-height: 90dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    /* Glassmorphism */
+    background: rgba(10, 20, 45, 0.82);
+    border: 1px solid rgba(99, 179, 237, 0.18);
+    border-radius: 20px;
+    box-shadow:
+        0 32px 80px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+        0 1px 0 rgba(255, 255, 255, 0.08) inset;
+
+    /* Scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(99, 179, 237, 0.3) transparent;
+}
+
+.tp-modal::-webkit-scrollbar { width: 4px; }
+.tp-modal::-webkit-scrollbar-thumb {
+    background: rgba(99, 179, 237, 0.3);
+    border-radius: 2px;
+}
+
+/* Modal animations */
+.tp-modal--in {
+    animation: tp-modal-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.tp-modal--out {
+    animation: tp-modal-out 0.35s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes tp-modal-in {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+@keyframes tp-modal-out {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.94) translateY(16px);
+    }
+}
+
+/* ---------- Header ---------- */
+.tp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.75rem 1.75rem 1.25rem;
+    border-bottom: 1px solid rgba(99, 179, 237, 0.1);
+}
+
+.tp-header__left {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.tp-badge {
+    display: inline-block;
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #63b3ed;
+    background: rgba(99, 179, 237, 0.1);
+    border: 1px solid rgba(99, 179, 237, 0.25);
+    border-radius: 4px;
+    padding: 3px 8px;
+    width: fit-content;
+}
+
+.tp-title {
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: clamp(1.15rem, 3.5vw, 1.6rem);
+    font-weight: 700;
+    color: #e2e8f0;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.tp-title--accent {
+    color: #63b3ed;
+    background: linear-gradient(135deg, #63b3ed, #76e4f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tp-subtitle {
+    font-size: clamp(0.75rem, 2vw, 0.875rem);
+    color: rgba(160, 174, 192, 0.85);
+    line-height: 1.5;
+    max-width: 42ch;
+    margin: 0;
+}
+
+/* Close button */
+.tp-close {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid rgba(99, 179, 237, 0.2);
+    background: rgba(99, 179, 237, 0.06);
+    color: rgba(160, 174, 192, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+    /* Larger hit area on touch */
+    padding: 0;
+}
+
+.tp-close:hover {
+    background: rgba(245, 101, 101, 0.15);
+    border-color: rgba(245, 101, 101, 0.4);
+    color: #fc8181;
+    transform: scale(1.08);
+}
+
+.tp-close:active {
+    transform: scale(0.95);
+}
+
+/* ---------- Video ---------- */
+.tp-video-wrapper {
+    position: relative;
+    padding: 1.25rem 1.75rem;
+    /* Enforce 16:9 aspect ratio */
+    line-height: 0;
+}
+
+.tp-video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    background: #000;
+    display: block;
+    /* Prevent overflow on older browsers */
+    max-width: 100%;
+    /* Subtle glow */
+    box-shadow:
+        0 0 0 1px rgba(99, 179, 237, 0.15),
+        0 8px 32px rgba(0, 0, 0, 0.45);
+    outline: none;
+}
+
+/* Safari: ensure no overflow */
+.tp-video::-webkit-media-controls {
+    border-radius: 0 0 12px 12px;
+}
+
+.tp-video-fallback {
+    text-align: center;
+    padding: 2rem;
+    color: #a0aec0;
+    font-size: 0.875rem;
+}
+
+.tp-video-fallback a {
+    color: #63b3ed;
+    text-decoration: underline;
+}
+
+/* ---------- Footer ---------- */
+.tp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem 1.75rem 1.5rem;
+    border-top: 1px solid rgba(99, 179, 237, 0.1);
+}
+
+/* Checkbox */
+.tp-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.tp-checkbox-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tp-checkbox-custom {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid rgba(99, 179, 237, 0.4);
+    background: rgba(99, 179, 237, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+}
+
+/* Checkmark via pseudo-element */
+.tp-checkbox-custom::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 9px;
+    border: 2px solid transparent;
+    border-top: none;
+    border-left: none;
+    border-color: transparent;
+    transform: rotate(45deg) translateY(-1px);
+    transition: border-color 0.15s;
+}
+
+.tp-checkbox-input:checked + .tp-checkbox-custom {
+    background: rgba(99, 179, 237, 0.2);
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.12);
+}
+
+.tp-checkbox-input:checked + .tp-checkbox-custom::after {
+    border-color: #63b3ed;
+}
+
+.tp-checkbox-input:focus-visible + .tp-checkbox-custom {
+    outline: 2px solid #63b3ed;
+    outline-offset: 2px;
+}
+
+.tp-checkbox-text {
+    font-size: clamp(0.72rem, 1.8vw, 0.8rem);
+    color: rgba(160, 174, 192, 0.85);
+    line-height: 1.4;
+}
+
+/* Continue Button */
+.tp-continue-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 10px;
+    border: 1.5px solid rgba(99, 179, 237, 0.5);
+    background: linear-gradient(135deg, rgba(99, 179, 237, 0.15), rgba(118, 228, 247, 0.1));
+    color: #e2e8f0;
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: clamp(0.65rem, 1.8vw, 0.75rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.25s;
+    white-space: nowrap;
+}
+
+.tp-continue-btn:hover {
+    background: linear-gradient(135deg, rgba(99, 179, 237, 0.28), rgba(118, 228, 247, 0.2));
+    border-color: rgba(99, 179, 237, 0.8);
+    box-shadow: 0 0 18px rgba(99, 179, 237, 0.25);
+    transform: translateY(-1px);
+}
+
+.tp-continue-btn:active {
+    transform: translateY(0) scale(0.97);
+    box-shadow: none;
+}
+
+.tp-continue-btn:focus-visible {
+    outline: 2px solid #63b3ed;
+    outline-offset: 2px;
+}
+
+/* ---------- Responsive ---------- */
+
+/* Tablet and smaller */
+@media (max-width: 640px) {
+    .tp-overlay {
+        padding: 0.75rem;
+        align-items: flex-end; /* Sheet-style on mobile */
+    }
+
+    .tp-modal {
+        max-height: 92dvh;
+        border-radius: 20px 20px 16px 16px;
+        /* Pull-to-dismiss drag handle aesthetic */
+    }
+
+    .tp-header {
+        padding: 1.25rem 1.25rem 1rem;
+    }
+
+    .tp-video-wrapper {
+        padding: 0.75rem 1.25rem;
+    }
+
+    .tp-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.85rem 1.25rem 1.25rem;
+        gap: 0.85rem;
+    }
+
+    .tp-continue-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+    .tp-overlay {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .tp-modal {
+        border-radius: 16px 16px 0 0;
+        max-height: 95dvh;
+    }
+}
+
+/* Large screens: cap width, ensure it stays centered */
+@media (min-width: 1200px) {
+    .tp-modal {
+        max-width: 900px;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .tp-overlay--in,
+    .tp-overlay--out,
+    .tp-modal--in,
+    .tp-modal--out {
+        animation: none;
+    }
+}
