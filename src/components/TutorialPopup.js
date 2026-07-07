@@ -6,7 +6,7 @@ const STORAGE_KEY = 'neuroscope_tutorial_dismissed';
 const TutorialPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-    const [rememberDevice, setRememberDevice] = useState(true);
+    const [rememberDevice, setRememberDevice] = useState(false);
     const videoRef = useRef(null);
 
     useEffect(() => {
