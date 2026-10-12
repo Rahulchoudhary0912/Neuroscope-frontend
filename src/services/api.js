@@ -1,9 +1,9 @@
 import axios from "axios";
-
+  //"https://rahul09122004-neuroscope.hf.space"
 // Load from environment (Hugging Face Space URL for production)
 export const API_BASE_URL =
   process.env.REACT_APP_API_URL ||
-  //"https://rahul09122004-neuroscope.hf.space"
+
   "https://rahul0912200-NeuroScope-Model.hf.space";
 
 console.log("🚀 API Base URL:", API_BASE_URL);
